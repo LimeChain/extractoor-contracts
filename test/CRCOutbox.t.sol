@@ -25,9 +25,16 @@ contract CRCOutboxTest is Test {
         outbox.sendMessage(c);
 
         assertEq(outbox.outbox(0), messageHash);
-
         assertEq(outbox.indexOf(messageHash), 0);
-
         assertEq(outbox.noncesNullifier(address(this), nonce), true);
+    }
+
+    function testRevertingReplay(uint8 version, uint64 nonce, bytes calldata payload) public {
+        CRCOutbox.CRCMessage memory c = CRCOutbox.CRCMessage({version: version, nonce: nonce, payload: payload});
+
+        outbox.sendMessage(c);
+
+        vm.expectRevert("Nonce already used");
+        outbox.sendMessage(c);
     }
 }
