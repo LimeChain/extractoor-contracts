@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 /**
- * Copied from https://github.com/lorenzb/proveth/blob/c74b20e/onchain/ProvethVerifier.sol
- * with minor performance and code style-related modifications.
+ * Copied from https://github.com/lidofinance/curve-merkle-oracle
  */
 pragma solidity ^0.8.13;
 

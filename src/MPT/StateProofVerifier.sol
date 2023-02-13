@@ -6,6 +6,7 @@ import {RLPReader} from "Solidity-RLP/RLPReader.sol";
 import {MerklePatriciaProofVerifier} from "./MerklePatriciaProofVerifier.sol";
 
 /**
+ * Copied from https://github.com/lidofinance/curve-merkle-oracle
  * @title A helper library for verification of Merkle Patricia account and state proofs.
  */
 library StateProofVerifier {

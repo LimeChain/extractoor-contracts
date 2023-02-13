@@ -6,6 +6,3 @@
 	path = lib/Solidity-RLP
 	url = https://github.com/hamdiallam/Solidity-RLP
 	branch = v2.0.6
-[submodule "lib/curve-merkle-oracle"]
-	path = lib/curve-merkle-oracle
-	url = https://github.com/lidofinance/curve-merkle-oracle
