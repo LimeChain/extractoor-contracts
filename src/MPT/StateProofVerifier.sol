@@ -17,13 +17,6 @@ library StateProofVerifier {
     uint256 constant HEADER_NUMBER_INDEX = 8;
     uint256 constant HEADER_TIMESTAMP_INDEX = 11;
 
-    struct BlockHeader {
-        bytes32 hash;
-        bytes32 stateRootHash;
-        uint256 number;
-        uint256 timestamp;
-    }
-
     struct Account {
         bool exists;
         uint256 nonce;
@@ -35,35 +28,6 @@ library StateProofVerifier {
     struct SlotValue {
         bool exists;
         uint256 value;
-    }
-
-    /**
-     * @notice Parses block header and verifies its presence onchain within the latest 256 blocks.
-     * @param _headerRlpBytes RLP-encoded block header.
-     */
-    function verifyBlockHeader(bytes memory _headerRlpBytes) internal view returns (BlockHeader memory) {
-        BlockHeader memory header = parseBlockHeader(_headerRlpBytes);
-        // ensure that the block is actually in the blockchain
-        require(header.hash == blockhash(header.number), "blockhash mismatch");
-        return header;
-    }
-
-    /**
-     * @notice Parses RLP-encoded block header.
-     * @param _headerRlpBytes RLP-encoded block header.
-     */
-    function parseBlockHeader(bytes memory _headerRlpBytes) internal pure returns (BlockHeader memory) {
-        BlockHeader memory result;
-        RLPReader.RLPItem[] memory headerFields = _headerRlpBytes.toRlpItem().toList();
-
-        require(headerFields.length > HEADER_TIMESTAMP_INDEX);
-
-        result.stateRootHash = bytes32(headerFields[HEADER_STATE_ROOT_INDEX].toUint());
-        result.number = headerFields[HEADER_NUMBER_INDEX].toUint();
-        result.timestamp = headerFields[HEADER_TIMESTAMP_INDEX].toUint();
-        result.hash = keccak256(_headerRlpBytes);
-
-        return result;
     }
 
     /**

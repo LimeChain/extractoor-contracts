@@ -1,13 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {StateProofVerifier as Verifier} from "./MPT/StateProofVerifier.sol";
-import {RLPReader} from "Solidity-RLP/RLPReader.sol";
-
 contract CRCOutbox {
-    using RLPReader for bytes;
-    using RLPReader for RLPReader.RLPItem;
-
     /// @dev outbox for messages
     bytes32[] public outbox;
 
@@ -25,6 +19,7 @@ contract CRCOutbox {
 
     event MessageSent(address indexed sender, bytes32 indexed hash, uint256 messageIndex);
 
+    /// @dev sends CRC message. Stores it as keccak hash
     function sendMessage(CRCMessage calldata message) public returns (bytes32 messageHash) {
         require(!noncesNullifier[msg.sender][message.nonce], "Nonce already used");
 
