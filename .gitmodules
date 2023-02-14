@@ -6,3 +6,7 @@
 	path = lib/Solidity-RLP
 	url = https://github.com/hamdiallam/Solidity-RLP
 	branch = v2.0.6
+[submodule "lib/solady"]
+	path = lib/solady
+	url = https://github.com/vectorized/solady
+	branch = v0.0.78
