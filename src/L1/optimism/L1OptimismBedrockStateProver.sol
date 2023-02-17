@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {OptimismBedrockStateProver} from "./../../optimism/OptimismBedrockStateProver.sol";
+import {OptimismBedrockStateProver} from "./../../library/optimism/OptimismBedrockStateProver.sol";
 import {IOptimismBedrockOutputOracle} from "./IOptimismBedrockOutputOracle.sol";
 import {Types} from "./../../library/optimism/Types.sol";
 

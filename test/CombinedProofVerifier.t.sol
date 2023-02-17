@@ -2,19 +2,19 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "../src/CRCProver.sol";
+import "../src/MPT/CombinedProofVerifier.sol";
 import {RLPReader} from "Solidity-RLP/RLPReader.sol";
 
-contract CRCProverTest is Test {
+contract CombinedProofVerifierTest is Test {
     using RLPReader for bytes;
     using RLPReader for RLPReader.RLPItem;
 
     event MessageSent(address indexed sender, bytes32 indexed hash, uint256 messageIndex);
 
-    CRCProver public prover;
+    CombinedProofVerifier public prover;
 
     function setUp() public {
-        prover = new CRCProver();
+        prover = new CombinedProofVerifier();
     }
 
     function testProve() public {

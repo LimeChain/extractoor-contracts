@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {CRCProver} from "./../CRCProver.sol";
+import {CombinedProofVerifier} from "./../../MPT/CombinedProofVerifier.sol";
 
-contract OptimismBedrockStateProver is CRCProver {
+contract OptimismBedrockStateProver is CombinedProofVerifier {
     bytes32 public constant versionByte = bytes32(0);
 
-    /// @dev See CRCProver.verifyStateProof
+    /// @dev See CombinedProofVerifier.verifyStateProof
     function _proveInOptimismState(
         bytes32 optimismStateRoot,
         address target,

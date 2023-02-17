@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {StateProofVerifier as Verifier} from "./MPT/StateProofVerifier.sol";
+import {StateProofVerifier as Verifier} from "./StateProofVerifier.sol";
 import {RLPReader} from "Solidity-RLP/RLPReader.sol";
 
-contract CRCProver {
+contract CombinedProofVerifier {
     using RLPReader for bytes;
     using RLPReader for RLPReader.RLPItem;
 
