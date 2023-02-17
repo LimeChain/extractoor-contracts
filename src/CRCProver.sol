@@ -11,15 +11,31 @@ contract CRCProver {
     /// @dev verifies proof for a specific target based on the state root
     /// @param stateRoot is the state root we are proving against
     /// @param target is the account we are proving for
-    /// @param accountProof is an array of rlp encoded nibbles that is the account proof. This is normally returned by eth_getProof.
-    function verifyProof(bytes32 stateRoot, address target, bytes[] calldata accountProof) public returns (bool) {
-        uint256 proofLen = accountProof.length;
-        RLPReader.RLPItem[] memory rlpAccountProofList = new RLPReader.RLPItem[](proofLen);
-        for (uint256 i = 0; i < proofLen; i++) {
-            rlpAccountProofList[i] = accountProof[i].toRlpItem();
-        }
+    /// @param slotPosition is the slot position that we will be getting the value for
+    /// @param value is the value we are trying to prove is in the slot
+    /// @param proofsBlob is ann rlp encoded array of the account proof and the storage proof. Each of these is the rlp encoded nibbles that is the corresponding proof. This is normally returned by eth_getProof.
+    function verifyStateProof(
+        bytes32 stateRoot,
+        address target,
+        bytes32 slotPosition,
+        uint256 value,
+        bytes calldata proofsBlob
+    ) public view returns (bool) {
+        RLPReader.RLPItem[] memory proofs = proofsBlob.toRlpItem().toList();
+        require(proofs.length == 2, "total proofs");
+
         Verifier.Account memory account =
-            Verifier.extractAccountFromProof(keccak256(abi.encodePacked(target)), stateRoot, rlpAccountProofList);
+            Verifier.extractAccountFromProof(keccak256(abi.encodePacked(target)), stateRoot, proofs[0].toList());
+
+        require(account.exists, "Account does not exist or proof is incorrect");
+
+        Verifier.SlotValue memory storageValue = Verifier.extractSlotValueFromProof(
+            keccak256(abi.encodePacked(slotPosition)), account.storageRoot, proofs[1].toList()
+        );
+
+        require(storageValue.exists, "Storage Value not found");
+
+        require(storageValue.value == value, "Incorrect value found on this position");
 
         return true;
     }
