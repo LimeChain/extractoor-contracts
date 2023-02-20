@@ -2,14 +2,17 @@
 pragma solidity ^0.8.13;
 
 import {ILightClient} from "./ILightClient.sol";
+import {Owned} from "solmate/auth/Owned.sol";
 
 /// @notice Simple contract that can be used as "LightClient" providing state roots for blocks by their number
 /// @dev DO NOT USE IN PRODUCTION
 /// @author Perseverance - LimeChain
-abstract contract SimpleLightClient is ILightClient {
+abstract contract SimpleLightClient is ILightClient, Owned {
     event StateRootSet(uint256 indexed blockNumber, bytes32 indexed state);
 
     mapping(uint256 => bytes32) public stateRootFor;
+
+    constructor(address owner) Owned(owner) {}
 
     /// @notice Method for setting the state root for a given block number in L1
     /// @param blockNumber The L1 block number
