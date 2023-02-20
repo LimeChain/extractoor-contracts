@@ -5,10 +5,9 @@ pragma solidity ^0.8.13;
 import {RLPReader} from "Solidity-RLP/RLPReader.sol";
 import {MerklePatriciaProofVerifier} from "./MerklePatriciaProofVerifier.sol";
 
-/**
- * Copied from https://github.com/lidofinance/curve-merkle-oracle
- * @title A helper library for verification of Merkle Patricia account and state proofs.
- */
+/// @notice A helper library for verification of Merkle Patricia account and state proofs.
+/// @author Perseverance - LimeChain
+/// @author Copied from https://github.com/lidofinance/curve-merkle-oracle
 library StateProofVerifier {
     using RLPReader for RLPReader.RLPItem;
     using RLPReader for bytes;
@@ -41,8 +40,12 @@ library StateProofVerifier {
         bytes32 _stateRootHash,
         RLPReader.RLPItem[] memory _proof
     ) internal pure returns (Account memory) {
-        bytes memory acctRlpBytes =
-            MerklePatriciaProofVerifier.extractProofValue(_stateRootHash, abi.encodePacked(_addressHash), _proof);
+        bytes memory acctRlpBytes = MerklePatriciaProofVerifier
+            .extractProofValue(
+                _stateRootHash,
+                abi.encodePacked(_addressHash),
+                _proof
+            );
 
         Account memory account;
 
@@ -50,7 +53,9 @@ library StateProofVerifier {
             return account;
         }
 
-        RLPReader.RLPItem[] memory acctFields = acctRlpBytes.toRlpItem().toList();
+        RLPReader.RLPItem[] memory acctFields = acctRlpBytes
+            .toRlpItem()
+            .toList();
         require(acctFields.length == 4);
 
         account.exists = true;
@@ -68,13 +73,17 @@ library StateProofVerifier {
      * @param _slotHash Keccak256 hash of the slot position.
      * @param _storageRootHash MPT root hash of the account's storage trie.
      */
-    function extractSlotValueFromProof(bytes32 _slotHash, bytes32 _storageRootHash, RLPReader.RLPItem[] memory _proof)
-        internal
-        pure
-        returns (SlotValue memory)
-    {
-        bytes memory valueRlpBytes =
-            MerklePatriciaProofVerifier.extractProofValue(_storageRootHash, abi.encodePacked(_slotHash), _proof);
+    function extractSlotValueFromProof(
+        bytes32 _slotHash,
+        bytes32 _storageRootHash,
+        RLPReader.RLPItem[] memory _proof
+    ) internal pure returns (SlotValue memory) {
+        bytes memory valueRlpBytes = MerklePatriciaProofVerifier
+            .extractProofValue(
+                _storageRootHash,
+                abi.encodePacked(_slotHash),
+                _proof
+            );
 
         SlotValue memory value;
 

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-/**
- * Copied from https://github.com/lidofinance/curve-merkle-oracle
- */
+/// @notice Verifier for Ethereum MPT Proofs
+/// @author Perseverance - LimeChain
+/// @author Copied from https://github.com/lidofinance/curve-merkle-oracle
 pragma solidity ^0.8.13;
 
 import {RLPReader} from "Solidity-RLP/RLPReader.sol";
@@ -23,11 +23,11 @@ library MerklePatriciaProofVerifier {
     ///        need to be traversed during verification.
     /// @return value whose inclusion is proved or an empty byte array for
     ///         a proof of exclusion
-    function extractProofValue(bytes32 rootHash, bytes memory path, RLPReader.RLPItem[] memory stack)
-        internal
-        pure
-        returns (bytes memory value)
-    {
+    function extractProofValue(
+        bytes32 rootHash,
+        bytes memory path,
+        RLPReader.RLPItem[] memory stack
+    ) internal pure returns (bytes memory value) {
         bytes memory mptKey = _decodeNibbles(path, 0);
         uint256 mptKeyOffset = 0;
 
@@ -38,7 +38,10 @@ library MerklePatriciaProofVerifier {
 
         if (stack.length == 0) {
             // Root hash of empty Merkle-Patricia-Trie
-            require(rootHash == 0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421);
+            require(
+                rootHash ==
+                    0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421
+            );
             return new bytes(0);
         }
 
@@ -66,9 +69,15 @@ library MerklePatriciaProofVerifier {
 
                 bool isLeaf;
                 bytes memory nodeKey;
-                (isLeaf, nodeKey) = _merklePatriciaCompactDecode(node[0].toBytes());
+                (isLeaf, nodeKey) = _merklePatriciaCompactDecode(
+                    node[0].toBytes()
+                );
 
-                uint256 prefixLength = _sharedPrefixLength(mptKeyOffset, mptKey, nodeKey);
+                uint256 prefixLength = _sharedPrefixLength(
+                    mptKeyOffset,
+                    mptKey,
+                    nodeKey
+                );
                 mptKeyOffset += prefixLength;
 
                 if (prefixLength < nodeKey.length) {
@@ -172,7 +181,11 @@ library MerklePatriciaProofVerifier {
     ///      to compare their Keccak-256 hashes.
     /// @param item The RLP item to be hashed.
     /// @return Keccak-256(MPT-hash(item))
-    function _mptHashHash(RLPReader.RLPItem memory item) private pure returns (bytes32) {
+    function _mptHashHash(RLPReader.RLPItem memory item)
+        private
+        pure
+        returns (bytes32)
+    {
         if (item.len < 32) {
             return item.rlpBytesKeccak256();
         } else {
@@ -180,7 +193,11 @@ library MerklePatriciaProofVerifier {
         }
     }
 
-    function _isEmptyBytesequence(RLPReader.RLPItem memory item) private pure returns (bool) {
+    function _isEmptyBytesequence(RLPReader.RLPItem memory item)
+        private
+        pure
+        returns (bool)
+    {
         if (item.len != 1) {
             return false;
         }
@@ -198,7 +215,7 @@ library MerklePatriciaProofVerifier {
         returns (bool isLeaf, bytes memory nibbles)
     {
         require(compact.length > 0);
-        uint256 first_nibble = uint8(compact[0]) >> 4 & 0xF;
+        uint256 first_nibble = (uint8(compact[0]) >> 4) & 0xF;
         uint256 skipNibbles;
         if (first_nibble == 0) {
             skipNibbles = 2;
@@ -219,7 +236,11 @@ library MerklePatriciaProofVerifier {
         return (isLeaf, _decodeNibbles(compact, skipNibbles));
     }
 
-    function _decodeNibbles(bytes memory compact, uint256 skipNibbles) private pure returns (bytes memory nibbles) {
+    function _decodeNibbles(bytes memory compact, uint256 skipNibbles)
+        private
+        pure
+        returns (bytes memory nibbles)
+    {
         require(compact.length > 0);
 
         uint256 length = compact.length * 2;
@@ -231,9 +252,13 @@ library MerklePatriciaProofVerifier {
 
         for (uint256 i = skipNibbles; i < skipNibbles + length; i += 1) {
             if (i % 2 == 0) {
-                nibbles[nibblesLength] = bytes1((uint8(compact[i / 2]) >> 4) & 0xF);
+                nibbles[nibblesLength] = bytes1(
+                    (uint8(compact[i / 2]) >> 4) & 0xF
+                );
             } else {
-                nibbles[nibblesLength] = bytes1((uint8(compact[i / 2]) >> 0) & 0xF);
+                nibbles[nibblesLength] = bytes1(
+                    (uint8(compact[i / 2]) >> 0) & 0xF
+                );
             }
             nibblesLength += 1;
         }
@@ -241,7 +266,11 @@ library MerklePatriciaProofVerifier {
         assert(nibblesLength == nibbles.length);
     }
 
-    function _sharedPrefixLength(uint256 xsOffset, bytes memory xs, bytes memory ys) private pure returns (uint256) {
+    function _sharedPrefixLength(
+        uint256 xsOffset,
+        bytes memory xs,
+        bytes memory ys
+    ) private pure returns (uint256) {
         uint256 i;
         for (i = 0; i + xsOffset < xs.length && i < ys.length; i++) {
             if (xs[i + xsOffset] != ys[i]) {
