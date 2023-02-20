@@ -20,22 +20,31 @@ contract CombinedProofVerifier {
         bytes32 slotPosition,
         uint256 value,
         bytes calldata proofsBlob
-    ) public view returns (bool) {
+    ) public pure returns (bool) {
         RLPReader.RLPItem[] memory proofs = proofsBlob.toRlpItem().toList();
         require(proofs.length == 2, "total proofs");
 
-        Verifier.Account memory account =
-            Verifier.extractAccountFromProof(keccak256(abi.encodePacked(target)), stateRoot, proofs[0].toList());
+        Verifier.Account memory account = Verifier.extractAccountFromProof(
+            keccak256(abi.encodePacked(target)),
+            stateRoot,
+            proofs[0].toList()
+        );
 
         require(account.exists, "Account does not exist or proof is incorrect");
 
-        Verifier.SlotValue memory storageValue = Verifier.extractSlotValueFromProof(
-            keccak256(abi.encodePacked(slotPosition)), account.storageRoot, proofs[1].toList()
-        );
+        Verifier.SlotValue memory storageValue = Verifier
+            .extractSlotValueFromProof(
+                keccak256(abi.encodePacked(slotPosition)),
+                account.storageRoot,
+                proofs[1].toList()
+            );
 
         require(storageValue.exists, "Storage Value not found");
 
-        require(storageValue.value == value, "Incorrect value found on this position");
+        require(
+            storageValue.value == value,
+            "Incorrect value found on this position"
+        );
 
         return true;
     }
