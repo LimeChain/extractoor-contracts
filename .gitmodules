@@ -6,3 +6,6 @@
 	path = lib/Solidity-RLP
 	url = https://github.com/hamdiallam/Solidity-RLP
 	branch = v2.0.6
+[submodule "lib/solmate"]
+	path = lib/solmate
+	url = https://github.com/transmissions11/solmate
