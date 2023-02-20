@@ -22,7 +22,7 @@ contract L1OptimismBedrockStateProverTest is Test {
     }
 
     function testProve() public {
-        uint256 l1BlockNumber = 0x81d27c;
+        uint64 l1BlockNumber = 0x81d27c;
         bytes32 l1StateRoot = 0x93a4bba104dd231938d1a73c809bf8615e954902ee2ba4e7ac5c05928c01b115;
 
         lightClient.setStateRoot(l1BlockNumber, l1StateRoot);

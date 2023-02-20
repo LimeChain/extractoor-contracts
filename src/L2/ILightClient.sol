@@ -7,8 +7,5 @@ interface ILightClient {
     /// @notice Should return the state root of L1 by its block number
     /// @param blockNumber The block number of the L1 block that the state root is requested
     /// @return The state root for the given block number
-    function getL1StateRoot(uint256 blockNumber)
-        external
-        view
-        returns (bytes32);
+    function stateRoot(uint64 blockNumber) external view returns (bytes32);
 }

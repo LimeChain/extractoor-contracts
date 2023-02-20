@@ -29,11 +29,11 @@ contract L2OptimismBedrockStateProver is OptimismBedrockStateProver {
     /// @param outputProof The MPT proof data to verify that the given output root is contained inside the OutputOracle for the expected index
     /// @return isValid if the output root is indeed there
     function proveOutputRoot(
-        uint256 blockNumber,
+        uint64 blockNumber,
         uint256 outputIndex,
         Types.OutputRootMPTProof calldata outputProof
     ) internal view returns (bool isValid) {
-        bytes32 l1StateRoot = lightClient.getL1StateRoot(blockNumber);
+        bytes32 l1StateRoot = lightClient.stateRoot(blockNumber);
 
         // See https://github.com/ethereum-optimism/optimism/blob/develop/specs/proposals.md#l2-output-commitment-construction
         bytes32 calculatedOutputRoot = keccak256(
@@ -69,7 +69,7 @@ contract L2OptimismBedrockStateProver is OptimismBedrockStateProver {
     /// @param expectedValue The expected value to be in the storage slot
     /// @return isValid if the expected value is indeed there
     function proveInOptimismState(
-        uint256 blockNumber,
+        uint64 blockNumber,
         uint256 outputIndex,
         Types.OutputRootMPTProof calldata outputProof,
         Types.MPTInclusionProof calldata inclusionProof,
