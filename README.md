@@ -4,6 +4,14 @@
 
 Library of contracts used for proving the Merkle Patricia Tree (MPT) inclusion of a certain storage inside a rollup. For easy generation of proofs and their encoding you can use this (TODO) sdk.
 
+## Installation
+
+To install with [**Foundry**](https://github.com/gakonst/foundry):
+
+```sh
+forge install LimeChain/extractoor-contracts
+```
+
 ## Contracts
 ```ml
 MPT
@@ -47,14 +55,6 @@ This is **experimental software** and is provided on an "as is" and "as availabl
 We **do not give any warranties** and **will not be liable for any loss** incurred through any use of this codebase.
 
 Please always include your own thorough tests when using Extractoor to make sure it works correctly with your code. 
-
-## Installation
-
-To install with [**Foundry**](https://github.com/gakonst/foundry):
-
-```sh
-forge install LimeChain/extractoor-contracts
-```
 
 ## Acknowledgements
 
