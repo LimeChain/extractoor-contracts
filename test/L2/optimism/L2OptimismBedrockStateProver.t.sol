@@ -6,7 +6,7 @@ import "./../../../src/L2/optimism/L2OptimismBedrockStateProver.sol";
 import "./../../mocks/MockLightClient.sol";
 import {RLPReader} from "Solidity-RLP/RLPReader.sol";
 
-contract L1OptimismBedrockStateProverTest is Test {
+contract L2OptimismBedrockStateProverTest is Test {
     using RLPReader for bytes;
     using RLPReader for RLPReader.RLPItem;
 

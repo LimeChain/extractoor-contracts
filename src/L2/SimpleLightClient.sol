@@ -23,7 +23,11 @@ abstract contract SimpleLightClient is ILightClient, Owned {
     }
 
     /// See ILightClient
-    function stateRoot(uint64 blockNumber) external view returns (bytes32) {
+    function executionStateRoot(uint64 blockNumber)
+        external
+        view
+        returns (bytes32)
+    {
         return stateRootFor[blockNumber];
     }
 }

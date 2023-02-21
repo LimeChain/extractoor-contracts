@@ -33,7 +33,7 @@ contract L2OptimismBedrockStateProver is OptimismBedrockStateProver {
         uint256 outputIndex,
         Types.OutputRootMPTProof calldata outputProof
     ) internal view returns (bool isValid) {
-        bytes32 l1StateRoot = lightClient.stateRoot(blockNumber);
+        bytes32 l1StateRoot = lightClient.executionStateRoot(blockNumber);
 
         // See https://github.com/ethereum-optimism/optimism/blob/develop/specs/proposals.md#l2-output-commitment-construction
         bytes32 calculatedOutputRoot = keccak256(
