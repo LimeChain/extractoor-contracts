@@ -2,7 +2,7 @@
 
 # Extractoor contracts
 
-Library of contracts used for proving the Merkle Patricia Tree (MPT) inclusion of a certain storage inside a rollup. For easy generation of proofs and their encoding you can use the contracts alongside with the [extractoor](https://github.com/LimeChain/extractoor-sdk) typescript sdk.
+Library of contracts used for proving the Merkle Patricia Tree (MPT) inclusion of a certain storage inside a rollup. For easy generation of proofs and their encoding you can use the contracts alongside with the [extractoor](https://github.com/LimeChain/extractoor-sdk) typescript sdk.It is part of the ongoing effort of [LimeLabs](https://limelabs.tech) and [LimeChain](https://limechain.tech) to give back and contribute to the blockchain community in the form of open source tooling and public goods infrastructure.
 
 ## Installation
 
@@ -46,7 +46,7 @@ The L2 contracts can be used in external networks and count on the L1 anchor sta
 
 ## Contributing
 
-Feel free to make a pull request.
+Feel free to make a pull request. **All uint tests must pass!**
 
 ## Safety
 
