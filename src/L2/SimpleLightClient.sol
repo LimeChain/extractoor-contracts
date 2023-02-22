@@ -8,7 +8,7 @@ import {Owned} from "solmate/auth/Owned.sol";
 /// @dev DO NOT USE IN PRODUCTION
 /// @author Perseverance - LimeChain
 abstract contract SimpleLightClient is ILightClient, Owned {
-    event StateRootSet(uint64 indexed blockNumber, bytes32 indexed state);
+    event HeadUpdate(uint64 indexed blockNumber, bytes32 indexed state);
 
     mapping(uint64 => bytes32) public stateRootFor;
 
@@ -19,7 +19,7 @@ abstract contract SimpleLightClient is ILightClient, Owned {
     /// @param _state The state root
     function setStateRoot(uint64 blockNumber, bytes32 _state) external {
         stateRootFor[blockNumber] = _state;
-        emit StateRootSet(blockNumber, _state);
+        emit HeadUpdate(blockNumber, _state);
     }
 
     /// See ILightClient
