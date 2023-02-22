@@ -2,7 +2,7 @@
 
 # Extractoor contracts
 
-Library of contracts used for proving the Merkle Patricia Tree (MPT) inclusion of a certain storage inside a rollup. For easy generation of proofs and their encoding you can use this (TODO) sdk.
+Library of contracts used for proving the Merkle Patricia Tree (MPT) inclusion of a certain storage inside a rollup. For easy generation of proofs and their encoding you can use the contracts alongside with the [extractoor](https://github.com/LimeChain/extractoor-sdk) typescript sdk.
 
 ## Installation
 
