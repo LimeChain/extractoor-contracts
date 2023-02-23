@@ -46,7 +46,7 @@ The L2 contracts can be used in external networks and count on the L1 anchor sta
 
 ## Contributing
 
-Feel free to make a pull request. **All uint tests must pass!**
+Feel free to make a pull request. **All unit tests must pass!**
 
 ## Safety
 
