@@ -43,6 +43,8 @@ The L2 contracts can be used in external networks and count on the L1 anchor sta
 ## Supported rollups
 
 - [x] Optimism Bedrock
+    - [x] Optimism Goerli
+    - [x] Base Goerli
 
 ## Contributing
 
